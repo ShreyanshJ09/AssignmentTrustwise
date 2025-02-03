@@ -36,5 +36,39 @@
         </div>
     </section>
 
+
+    <script>
+        document.getElementById('analysis-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const inputText = document.getElementById('text-input');
+            const analyzeButton = document.getElementById('analyze-button');
+
+            inputText.disabled = true;
+            analyzeButton.innerText = "Analyzing...";
+            analyzeButton.disabled = true;
+
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ 'text-input': inputText.value })
+            });
+
+            const result = await response.json();
+
+            document.getElementById('toxicity-label').innerText = `Label: Toxic`;
+            document.getElementById('toxicity-score').innerText = `Score: ${result.toxicity.score.toFixed(2)}`;
+
+            document.getElementById('gibberish-label').innerText = `Label: Gibberish`;
+            document.getElementById('gibberish-score').innerText = `Score: ${result.gibberish.score.toFixed(2)}`;
+
+            inputText.disabled = false;
+            analyzeButton.innerText = "Analyze";
+            analyzeButton.disabled = false;
+        });
+    </script>
+
 </body>
 </html>
