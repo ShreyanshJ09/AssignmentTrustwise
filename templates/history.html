@@ -65,5 +65,51 @@
         </div>
     </section>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            let ids = [];
+            let toxicScores = [];
+            let gibberishScores = [];
+
+            document.querySelectorAll("#data-table tbody tr").forEach(row => {
+                let columns = row.getElementsByTagName("td");
+                ids.push(columns[0].innerText);
+                toxicScores.push(parseFloat(columns[2].innerText));
+                gibberishScores.push(parseFloat(columns[3].innerText));
+            });
+
+
+            let ctx = document.getElementById('data-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ids,
+                    datasets: [
+                        {
+                            label: 'Toxic Score',
+                            data: toxicScores,
+                            backgroundColor: 'rgba(255, 0, 0, 0.5)'
+                        },
+                        {
+                            label: 'Gibberish Score',
+                            data: gibberishScores,
+                            backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
