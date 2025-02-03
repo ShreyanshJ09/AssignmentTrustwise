@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Text Analysis</h1>
+        <form action="/history" method="get" id="history-form">
+            <button type="submit" id="view-history-button">View History</button>
+        </form>
+    </header>
+
+    <section>
+        <form id="analysis-form">
+            <label for="text-input">Enter your text:</label><br>
+            <input type="text" id="text-input" name="text-input" placeholder="Type something..." required><br><br>
+            <button type="submit" id="analyze-button">Analyze</button>
+        </form>
+    </section>
+
+    <section id="results-section">
+        <div id="toxicity-result" class="result-box">
+            <h3>Toxicity</h3>
+            <p id="toxicity-label">Label: </p>
+            <p id="toxicity-score">Score: </p>
+        </div>
+
+        <div id="gibberish-result" class="result-box">
+            <h3>Gibberish</h3>
+            <p id="gibberish-label">Label: </p>
+            <p id="gibberish-score">Score: </p>
+        </div>
+    </section>
+
+</body>
+</html>
