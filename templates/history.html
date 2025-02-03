@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Viewer</title>
+    <link rel="stylesheet" href="/static/style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #data-chart {
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Data Viewer</h1>
+        <a href="/" id="view-history-button">Main Menu</a>
+    </header>
+
+    <section>
+        <div class="result-box">
+            <h3>Data Table</h3>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>String</th>
+                        <th>Toxic Score</th>
+                        <th>Gibberish Score</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records.items %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>{{ record.text }}</td>
+                        <td>{{ record.toxicity_score }}</td>
+                        <td>{{ record.gibberish_score }}</td>
+                        <td>{{ record.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                {% if records.has_prev %}
+                <a href="{{ url_for('history', page=records.prev_num) }}" class="button">Previous</a>
+                {% else %}
+                <span class="button disabled">Previous</span>
+                {% endif %}
+
+                {% if records.has_next %}
+                <a href="{{ url_for('history', page=records.next_num) }}" class="button">Next</a>
+                {% else %}
+                <span class="button disabled">Next</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="result-box">
+            <h3>Graph</h3>
+            <canvas id="data-chart"></canvas>
+        </div>
+    </section>
+
+</body>
+</html>
