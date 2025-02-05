@@ -1,11 +1,20 @@
 import torch
 import torch.nn.functional as F
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
+import os
+
 
 
 def detect_gibberish(input_text):
-    model = AutoModelForSequenceClassification.from_pretrained("madhurjindal/autonlp-Gibberish-Detector-492513457", token=True)
-    tokenizer = AutoTokenizer.from_pretrained("madhurjindal/autonlp-Gibberish-Detector-492513457", token=True)
+    hf_token = os.getenv("HF_TOKEN")
+    model = AutoModelForSequenceClassification.from_pretrained(
+        "madhurjindal/autonlp-Gibberish-Detector-492513457", token=hf_token
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        "madhurjindal/autonlp-Gibberish-Detector-492513457", token=hf_token
+    )
+    # model = AutoModelForSequenceClassification.from_pretrained("madhurjindal/autonlp-Gibberish-Detector-492513457", token=True)
+    # tokenizer = AutoTokenizer.from_pretrained("madhurjindal/autonlp-Gibberish-Detector-492513457", token=True)
 
     inputs = tokenizer.encode(input_text, return_tensors="pt")
 
