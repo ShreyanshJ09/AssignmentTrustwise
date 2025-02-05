@@ -1,0 +1,36 @@
+Project Setup
+    Prerequisites
+    Install Docker on your system. You can download it from Docker's official website.
+    Ensure Python dependencies are included in the requirements.txt file.
+        Steps to Set Up the Project Using Docker
+            Clone the Repository:
+                bash command
+                    1.git clone <repository-url>
+                    2.cd <repository-directory>
+            Build the Docker Image:
+
+            Run the following command to build the Docker image: bash
+                    3.docker build -t text-analysis-app .
+
+            Run the Docker Container:bash
+                    4.docker run -p 5000:5000 text-analysis-app
+
+            The application will now be accessible at http://localhost:5000.
+
+           Stop the Container:
+                To stop the running container, first find its CONTAINER ID using:bash
+                    5.docker ps
+                Then stop it with:bash
+                    6.docker stop <CONTAINER_ID>
+
+
+Trobleshooting:
+    if this error pops "C:\Users\shashwat\PycharmProjects\Final_assignment>docker build -t text-analysis-app . ERROR: error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified."
+Solution:
+    Restart Docker Service
+        LINUX :
+            sudo systemctl restart docker
+        Mac OS:
+            osascript -e 'quit app "Docker"' && open -a Docker
+        Windows (PowerShell as Admin):
+            Restart-Service docker
